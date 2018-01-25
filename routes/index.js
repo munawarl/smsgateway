@@ -59,7 +59,7 @@ router.post('/message', function(req, res, next) {
      axios.defaults.baseURL = twilioAPIURL + accountSid + '/';
 			axios.defaults.headers['Authorization'] = 'Basic '+ authToken;
 			axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-			message = message.replace('{{ticket.zz.message}}', msg);
+			message = message.replace('$$TICKET_ZZ_MESSAGE', msg);
 		  
 		
 		  axios.post('Messages.json',
