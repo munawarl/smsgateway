@@ -42,9 +42,21 @@ router.post('/message', function(req, res, next) {
   .then(function(response){
     console.log(response.data); // ex.: { user: 'Your User'}
     console.log(response.status); // ex.: 200
+    var msgs = response.data.data;
+    var msg = '';
+    var size = msgs.length;
+    if (msgs != null && size > 0) {
+    	msg = msgs[size-1].message;
+    	if (msg != null) {
+    		msg = msg.replace('<p>','');
+    		msg = msg.replace('<br>','');
+    		msg = msg.replace('</p>','');
+    	}
+    }
      axios.defaults.baseURL = 'https://api.twilio.com/2010-04-01/Accounts/' + accountSid + '/';
 			axios.defaults.headers['Authorization'] = 'Basic '+ authToken;
 			axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			message = message.replace('{{ticket.zz.message}}', msg);
 		  
 		
 		  axios.post('Messages.json',
