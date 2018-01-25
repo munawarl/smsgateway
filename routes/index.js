@@ -15,7 +15,7 @@ var twilio = require('twilio');
 
 //Get message from Desktop
 
-//axios.defaults.baseURL = 'https://dpt.theismailiusa.org/api/v2/tickets/2269/messages';
+axios.defaults.baseURL = 'https://dpt.theismailiusa.org/api/v2/tickets/';
 
 //axios.defaults.headers['Authorization'] = 'key 1:N7MJ53GA2TNSYS4GHDPZ88YAS';
 axios.defaults.headers['Content-Type'] = 'application/json';
@@ -43,7 +43,7 @@ router.post('/message', function(req, res, next) {
   console.log('ticketNumber:',ticketNumber);
   console.log('authorization:',authorization);
   
-  axios.get('https://dpt.theismailiusa.org/api/v2/tickets/' + ticketNumber + '/messages')
+  axios.get(ticketNumber + '/messages')
   .then(function(response){
     console.log(response.data); // ex.: { user: 'Your User'}
     console.log(response.status); // ex.: 200
