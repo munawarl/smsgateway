@@ -4,22 +4,12 @@ var router = express.Router();
 var querystring = require('querystring');
 const axios = require('axios').create({});
 
-
-
 var accountSid;
 var authToken;
 var ticketNumber;
 
 var twilio = require('twilio');
-//var client = new twilio(accountSid, authToken);
-//var client;
 
-//Get message from Desktop
-
-axios.defaults.baseURL = 'https://dpt.theismailiusa.org/api/v2/tickets/';
-
-//axios.defaults.headers['Authorization'] = 'key 1:N7MJ53GA2TNSYS4GHDPZ88YAS';
-axios.defaults.headers['Content-Type'] = 'application/json';
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -35,6 +25,10 @@ router.post('/message', function(req, res, next) {
   ticketNumber = req.body.ticket_number;
   authorization = req.body.authorization;
   //client = new twilio(accountSid, authToken);
+  axios.defaults.baseURL = 'https://dpt.theismailiusa.org/api/v2/tickets/';
+
+	axios.defaults.headers['Content-Type'] = 'application/json';
+
   axios.defaults.headers['Authorization'] = authorization;
   
   console.log('fromMobile:',fromMobile);
@@ -49,7 +43,7 @@ router.post('/message', function(req, res, next) {
     console.log(response.data); // ex.: { user: 'Your User'}
     console.log(response.status); // ex.: 200
      axios.defaults.baseURL = 'https://api.twilio.com/2010-04-01/Accounts/' + accountSid + '/';
-			axios.defaults.headers['authorization'] = 'Basic '+ authToken;
+			axios.defaults.headers['Authorization'] = 'Basic '+ authToken;
 			axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 		  
 		
