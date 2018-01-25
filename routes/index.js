@@ -24,12 +24,9 @@ router.post('/message', function(req, res, next) {
   authToken = req.body.auth_token;
   ticketNumber = req.body.ticket_number;
   authorization = req.body.authorization;
-  //client = new twilio(accountSid, authToken);
-  axios.defaults.baseURL = 'https://dpt.theismailiusa.org/api/v2/tickets/';
-
-	axios.defaults.headers['Content-Type'] = 'application/json';
-
-  axios.defaults.headers['Authorization'] = authorization;
+  var deskproAPIURL = req.body.deskpro_api_url || 'https://dpt.theismailiusa.org/api/v2/tickets/';
+  var twilioAPIURL = req.body.twilio_api_url || 'https://api.twilio.com/2010-04-01/Accounts/';
+ 
   
   console.log('fromMobile:',fromMobile);
   console.log('toMobile:',toMobile);
@@ -37,6 +34,12 @@ router.post('/message', function(req, res, next) {
   
   console.log('ticketNumber:',ticketNumber);
   console.log('authorization:',authorization);
+  
+  axios.defaults.baseURL = deskproAPIURL;
+
+	axios.defaults.headers['Content-Type'] = 'application/json';
+
+  axios.defaults.headers['Authorization'] = authorization;
   
   axios.get(ticketNumber + '/messages')
   .then(function(response){
@@ -53,7 +56,7 @@ router.post('/message', function(req, res, next) {
     		msg = msg.replace('</p>','');
     	}
     }
-     axios.defaults.baseURL = 'https://api.twilio.com/2010-04-01/Accounts/' + accountSid + '/';
+     axios.defaults.baseURL = twilioAPIURL + accountSid + '/';
 			axios.defaults.headers['Authorization'] = 'Basic '+ authToken;
 			axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 			message = message.replace('{{ticket.zz.message}}', msg);
