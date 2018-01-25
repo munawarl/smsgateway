@@ -20,10 +20,10 @@ router.post('/message', function(req, res, next) {
   let message = req.body.message || 'test message';
   let fromMobile = req.body.from || '+18329812858';
   let toMobile = req.body.to || '+18052083159';
-  accountSid = req.body.account_sid;
-  authToken = req.body.auth_token;
+  accountSid = req.body.twilio_account_sid;
+  authToken = req.body.twilio_auth_token;
   ticketNumber = req.body.ticket_number;
-  authorization = req.body.authorization;
+  authorization = req.body.deskpro_api_authorization;
   var deskproAPIURL = req.body.deskpro_api_url || 'https://dpt.theismailiusa.org/api/v2/tickets/';
   var twilioAPIURL = req.body.twilio_api_url || 'https://api.twilio.com/2010-04-01/Accounts/';
  
