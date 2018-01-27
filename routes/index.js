@@ -54,7 +54,7 @@ function callDeskProAPI4TicketMsg(message, fromMobile, toMobile, req, res, next)
     	}
     }
     message = message.replace(tmsgMark, msg);
-    callTwilioAPI(message, fromMobile, toMobile);
+    callTwilioAPI(message, fromMobile, toMobile, req, res, next);
 		  
      
   }).catch(e => {
