@@ -26,7 +26,7 @@ function callTwilioAPI(message, fromMobile, toMobile) {
   .then(result => {
     res.json( result.data);
   }).catch(e => {
-    console.log(e)
+    console.log(e);
     next();
   });
 }
@@ -58,7 +58,7 @@ function callDeskProAPI4TicketMsg(message, fromMobile, toMobile) {
 		  
      
   }).catch(e => {
-    console.log(e)
+    console.log(e);
     next();
   });
 }
