@@ -15,7 +15,7 @@ var twilio = require('twilio');
 var deskproAPIURL;
 var twilioAPIURL;
 
-function callTwilioAPI(message, fromMobile, toMobile) {
+function callTwilioAPI(message, fromMobile, toMobile, req, res, next) {
 	axios.defaults.baseURL = twilioAPIURL + accountSid + '/';
 	axios.defaults.headers['Authorization'] = 'Basic '+ authToken;
 	axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -31,7 +31,7 @@ function callTwilioAPI(message, fromMobile, toMobile) {
   });
 }
 
-function callDeskProAPI4TicketMsg(message, fromMobile, toMobile) {
+function callDeskProAPI4TicketMsg(message, fromMobile, toMobile, req, res, next) {
 	 axios.defaults.baseURL = deskproAPIURL;
 
 	axios.defaults.headers['Content-Type'] = 'application/json';
@@ -90,9 +90,9 @@ router.post('/message', function(req, res, next) {
   
   //Call Twilio API directly if no message call out needed
   if (ticketNumber == null || ticketNumber.length == 0 || message.indexOf(tmsgMark) < 0) {
-  	callTwilioAPI(message, fromMobile, toMobile);
+  	callTwilioAPI(message, fromMobile, toMobile, req, res, next);
   } else {
-  	callDeskProAPI4TicketMsg(message, fromMobile, toMobile);
+  	callDeskProAPI4TicketMsg(message, fromMobile, toMobile, req, res, next);
   }
  
   
