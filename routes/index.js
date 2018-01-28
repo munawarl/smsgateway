@@ -95,7 +95,9 @@ router.post('/message', function(req, res, next) {
   if (ticketNumber == null || ticketNumber.length == 0 || message.indexOf(tmsgMark) < 0) {
   	callTwilioAPI(message, fromMobile, toMobile, req, res, next);
   } else {
-  	setTimeout(callDeskProAPI4TicketMsg, 10000, message, fromMobile, toMobile, req, res, next);
+  	//callDeskProAPI4TicketMsg(message, fromMobile, toMobile, req, res, next);
+  	res.end('{"status":"DONE"}')
+  	setTimeout(callDeskProAPI4TicketMsg, 2000, message, fromMobile, toMobile, req, res, next);
   
   	
   }
