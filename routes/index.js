@@ -100,7 +100,7 @@ router.post('/message', function(req, res, next) {
   	
   	res.end('{"status":"DONE"}')
 	callDeskProAPI4TicketMsg(message, fromMobile, toMobile, req, res, next);
-  	//setTimeout(callDeskProAPI4TicketMsg, 2000, message, fromMobile, toMobile, req, res, next);
+  	//setTimeout(callDeskProAPI4TicketMsg, 1000, message, fromMobile, toMobile, req, res, next);
   
   	
   }
