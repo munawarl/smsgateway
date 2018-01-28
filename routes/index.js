@@ -52,7 +52,9 @@ function callDeskProAPI4TicketMsg(message, fromMobile, toMobile, req, res, next)
     		msg = msg.replace('</p>','');
     	}
     }
-    message = message.replace(tmsgMark, msg);
+    if (message != null) {
+    	message = message.replace(tmsgMark, msg);
+    }
     callTwilioAPI(message, fromMobile, toMobile, req, res, next);
 		  
      
