@@ -15,7 +15,7 @@ var twilio = require('twilio');
 var deskproAPIURL;
 var twilioAPIURL;
 
-function callTwilioAPI(message, fromMobile, toMobile, req, res, next) {
+function callTwilioAPI(isDirectCall, message, fromMobile, toMobile, req, res, next) {
 	axios.defaults.baseURL = twilioAPIURL + accountSid + '/';
 	axios.defaults.headers['Authorization'] = 'Basic '+ authToken;
 	axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -25,7 +25,9 @@ function callTwilioAPI(message, fromMobile, toMobile, req, res, next) {
     querystring.stringify({From: fromMobile, To: toMobile, Body: message }))
   .then(result => {
   	console.log('Twilio API Calls returned back with status: ' + result.status);
-    res.json( result.data);
+  	if (isDirectCall) {
+    	res.json( result.data);
+  	}
   }).catch(e => {
     console.log(e);    
   });
@@ -58,7 +60,7 @@ function callDeskProAPI4TicketMsg(message, fromMobile, toMobile, req, res, next)
     if (message != null) {
     	message = message.replace(tmsgMark, msg);
     }
-    callTwilioAPI(message, fromMobile, toMobile, req, res, next);
+    callTwilioAPI(false, message, fromMobile, toMobile, req, res, next);
 		  
      
   }).catch(e => {
@@ -93,7 +95,7 @@ router.post('/message', function(req, res, next) {
   
   //Call Twilio API directly if no message call out needed
   if (ticketNumber == null || ticketNumber.length == 0 || message.indexOf(tmsgMark) < 0) {
-  	callTwilioAPI(message, fromMobile, toMobile, req, res, next);
+  	callTwilioAPI(true, message, fromMobile, toMobile, req, res, next);
   } else {
   	//callDeskProAPI4TicketMsg(message, fromMobile, toMobile, req, res, next);
   	res.end('{"status":"DONE"}')
