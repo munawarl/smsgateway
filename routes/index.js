@@ -50,6 +50,8 @@ function callDeskProAPI4TicketMsg(message, fromMobile, toMobile, req, res, next)
     		msg = msg.replace('<p>','');
     		msg = msg.replace('<br>','');
     		msg = msg.replace('</p>','');
+    		msg = msg.replace('<div>','');
+    		msg = msg.replace('</div>','');
     	}
     }
     if (message != null) {
